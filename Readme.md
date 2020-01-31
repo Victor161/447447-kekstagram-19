@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Victor Suglobov](https://up.htmlacademy.ru/javascript/19/user/447447).
-* Наставник: `Неизвестно`.
+* Наставник: `Murat Barkinkhoev`.
 
 ---
 
