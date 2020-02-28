@@ -2,7 +2,11 @@
 
 var MESSAGES = [
   'Всё отлично',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.'
 ];
 
 var NAMES = ['Артём', 'Коля', 'Оля', 'Люба', 'Света', 'Максим'];
@@ -11,14 +15,14 @@ var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-var makeObjects = function (arrNames, arrMessages) {
+var makeObject = function (arrNames, arrMessages) {
   var photoItem = {};
   photoItem.url = 'photos/' + getRandomInt(1, 25) + '.jpg';
   photoItem.description = '';
   photoItem.likes = getRandomInt(15, 200);
   photoItem.comments = [];
 
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < getRandomInt(1, 5); i++) {
     var commentsObj = {};
     commentsObj.avatar = 'img/avatar-' + getRandomInt(1, 6) + '.svg';
     commentsObj.message = arrMessages[getRandomInt(0, arrMessages.length - 1)];
@@ -28,40 +32,37 @@ var makeObjects = function (arrNames, arrMessages) {
   return photoItem;
 };
 
-var photoObj = makeObjects(NAMES, MESSAGES);
-
 var makeArrOfObjects = function () {
   var arrOfObjects = [];
 
   for (var i = 0; i < 25; i++) {
-    photoObj = makeObjects(NAMES, MESSAGES);
-    arrOfObjects[i] = photoObj;
+    arrOfObjects[i] = makeObject(NAMES, MESSAGES);
   }
   return arrOfObjects;
 };
 
-var bigArrOfOjects = makeArrOfObjects();
+var bigArrOfObjects = makeArrOfObjects();
 
 var pictureTemplate = document.querySelector('#picture')
-    .content
-    .querySelector('.picture');
+  .content
+  .querySelector('.picture');
 
-var renderPicture = function (photoCard) {
-  var pictureElement = pictureTemplate.cloneNode(true);
+var createPicture = function (photoCard) {
+var pictureElement = pictureTemplate.cloneNode(true);
 
-  pictureElement.querySelector('picture__img').src = photoCard.url;
-  pictureElement.querySelector('picture__comments').textContent = photoCard.comments;
-  pictureElement.querySelector('picture__likes').textContent = photoCard.likes;
+  pictureElement.querySelector('.picture__img').src = photoCard.url;
+  pictureElement.querySelector('.picture__comments').textContent = photoCard.comments.length;
+  pictureElement.querySelector('.picture__likes').textContent = photoCard.likes;
 
   return pictureElement;
 };
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < bigArrOfOjects.length; i++) {
-  fragment.appendChild(renderPicture(photoObj[i]));
+for (var i = 0; i < bigArrOfObjects.length; i++) {
+  fragment.appendChild(createPicture(bigArrOfObjects[i]));
 }
 
-var pictureList = document.querySelector('.picture');
+var pictureList = document.querySelector('.pictures');
 
 pictureList.appendChild(fragment);
