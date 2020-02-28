@@ -48,7 +48,7 @@ var pictureTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 
 var createPicture = function (photoCard) {
-var pictureElement = pictureTemplate.cloneNode(true);
+  var pictureElement = pictureTemplate.cloneNode(true);
 
   pictureElement.querySelector('.picture__img').src = photoCard.url;
   pictureElement.querySelector('.picture__comments').textContent = photoCard.comments.length;
