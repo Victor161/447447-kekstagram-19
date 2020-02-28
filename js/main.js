@@ -36,7 +36,7 @@ var makeArrOfObjects = function () {
   for (var i = 0; i < 25; i++) {
     photoObj = makeObjects(NAMES, MESSAGES);
     arrOfObjects[i] = photoObj;
-}
+  }
   return arrOfObjects;
 };
 
